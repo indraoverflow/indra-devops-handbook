@@ -6,13 +6,13 @@ In enterprise environments, certain system users are created solely for running 
 
 In this case, a system administrator is required to create a user for a backup agent in a company environment. The user must exist on the system but must not have access to an interactive shell.
 
----
+
 
 ## 🎯 Objective
 
 Create a user named `rose` with a **non-interactive shell** and **disabled login access** on the target server.
 
----
+
 
 ## 🧠 Scenario
 
@@ -22,7 +22,7 @@ A backup agent tool requires a dedicated system user to run its processes. For s
 * not allow interactive login
 * reduce the risk of unauthorized access
 
----
+
 
 ## 🛠️ Implementation
 
@@ -38,7 +38,7 @@ Example output:
 /usr/sbin/nologin
 ```
 
----
+
 
 ### 2. Create the User with Non-Interactive Shell
 
@@ -46,7 +46,7 @@ Example output:
 useradd -s $(which nologin) rose
 ```
 
----
+
 
 ### 3. Lock the User Password (IMPORTANT)
 
@@ -56,7 +56,7 @@ passwd -l rose
 
 This ensures the system does not attempt password authentication.
 
----
+
 
 ### 4. Verify User Configuration
 
@@ -70,7 +70,7 @@ Expected output (example):
 rose:x:1001:1001::/home/rose:/usr/sbin/nologin
 ```
 
----
+
 
 ### 5. Validate Login Restriction
 
@@ -84,7 +84,7 @@ Expected result:
 This account is currently not available.
 ```
 
----
+
 
 ## 🔐 Security Considerations
 
@@ -92,7 +92,7 @@ This account is currently not available.
 * Reduces attack surface in case of credential exposure
 * Enforces the principle of least privilege
 
----
+
 
 ## 💡 Best Practices
 
@@ -116,7 +116,7 @@ This account is currently not available.
   * minimal permissions
   * proper file ownership
 
----
+
 
 ## ❗ Troubleshooting
 
@@ -130,7 +130,7 @@ This account is currently not available.
 passwd -l rose
 ```
 
----
+
 
 ### Issue: User can still access shell
 
@@ -142,7 +142,7 @@ passwd -l rose
 usermod -s $(which nologin) rose
 ```
 
----
+
 
 ### Issue: `nologin` not found
 
@@ -154,7 +154,7 @@ which nologin
 
 Use the returned path instead of hardcoding `/sbin/nologin`.
 
----
+
 
 ## 🚀 Real-World Application
 
@@ -167,7 +167,7 @@ This approach is commonly used in:
 
 By restricting login capability, organizations ensure that service accounts are only used for their intended purpose.
 
----
+
 
 ## 📚 Reference
 
